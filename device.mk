@@ -41,6 +41,11 @@ PRODUCT_COPY_FILES += \
     device/samsung/jflte/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
     device/samsung/jflte/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
 
+# ChronicKernel Specifics
+PRODUCT_COPY_FILES += \
+    device/samsung/jflte/configs/post-init.sh:root/sbin/post-init.sh \
+    device/samsung/jflte/configs/chronic-config.sh:system/etc/chronic-config.sh
+
 # Media Profile
 PRODUCT_COPY_FILES += \
     device/samsung/jflte/media/media_profiles.xml:system/etc/media_profiles.xml

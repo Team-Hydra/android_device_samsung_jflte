@@ -365,33 +365,40 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
     user media
     group system camera inet input graphics
 
-service thermald /system/bin/thermald
-   class main
-   user root
-   group root
-   disabled
+#service thermald /system/bin/thermald
+#   class main
+#   user root
+#   group root
+#   disabled
 
-service thermal-engine /system/bin/thermal-engine
-   class main
-   user root
-   group root
-   disabled 
+#service thermal-engine /system/bin/thermal-engine
+#   class main
+#   user root
+#   group root
+#   disabled 
 
-on property:qcom.thermal=thermald
-    start thermald
+#on property:qcom.thermal=thermald
+#    start thermald
     
-on property:qcom.thermal=thermal-engine
-    start thermal-engine
+#on property:qcom.thermal=thermal-engine
+#    start thermal-engine
 
-service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
-    user root
-    disabled
+#service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
+#    user root
+#    disabled
 
 service kickstart /system/bin/qcks -i /firmware-mdm/image/
     user root
     group radio cache inet misc audio sdcard_rw log
     oneshot
     disabled
+
+service chronic-config /system/bin/sh /system/etc/chronic-config.sh
+    class late_start
+    user root
+    disabled
+    oneshot
+
 
 service mdm_helper /system/bin/mdm_helper
     class main
@@ -417,6 +424,9 @@ on property:ro.baseband=mdm
 on property:ro.baseband=sglte
     mkdir /data/misc/mdmhelperdata 0700
     start mdm_helper
+
+on property:sys.boot_completed=1
+    start chronic-config
 
 service time_daemon /system/bin/time_daemon
    class late_start
